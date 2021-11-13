@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/bottom_sheet"
+    style="@style/Animation.Design.BottomSheetDialog"
+    android:padding="0dp"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="720dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:id="@+id/title_layout"
+                android:padding="10dp"
+                android:background="@color/BottomSheetTitle">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="@string/enter_title"
+                    android:textSize="20sp"
+                    android:textColor="@color/darkgrayTextColor"
+                    android:textColorHint="@color/darkgrayTextColor"
+                    android:id="@+id/enter_todo_title"
+                    android:backgroundTint="@color/darkgrayTextColor"
+                    android:textCursorDrawable="@null"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:inputType="textAutoCorrect|textCapSentences"/>
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="560dp"
+                android:background="@color/BottomSheetContent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/enter_todo_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="25dp"
+                    android:backgroundTint="@color/grayTextColor"
+                    android:hint="@string/enter_description"
+                    android:inputType="textAutoCorrect|textCapSentences"
+                    android:lines="2"
+                    android:maxLines="3"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/grayTextColor"
+                    android:textColorHint="@color/grayTextColor"
+                    android:textCursorDrawable="@null"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pick up a Due Date"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/darkTextColor"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="48dp"/>
+
+                <CalendarView
+                    android:id="@+id/calendar_view"
+                    android:layout_width="318dp"
+                    android:layout_height="318dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:dateTextAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_save"
+            android:tint="@color/fabIconColor"
+            android:backgroundTint="@color/fabBackground"
+            app:layout_anchor="@id/title_layout"
+            app:layout_anchorGravity="bottom|right"
+            app:borderWidth="0dp"
+            android:elevation="8dp"
+            app:fabSize="normal"
+            android:padding="0dp"
+            android:scaleType="fitXY"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

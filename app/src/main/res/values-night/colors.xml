@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="primaryBackground">#0e0e0e</color>
+    <color name="secondaryBackground">#191E29</color>
+
+    <color name="appBarBackground">#0e0513</color>
+
+    <color name="navheaderBackground">#170e1f</color>
+
+    <color name="navViewBackground">#332946</color>
+
+    <color name="primaryTextColor">#FFFFFF</color>
+    <color name="secondaryTextColor">#FEFAE0</color>
+    <color name="darkTextColor">#FFFFFF</color>
+    <color name="darkgrayTextColor">#FFFFFF</color>
+    <color name="grayTextColor">#E9ECEF</color>
+    <color name="lightgrayTextColor">#FFFFFF</color>
+    <color name="lightergrayTextColor">#ADB5BD</color>
+
+    <color name="selectorColor">#E76F51</color>
+    <color name="selectorBackground">#2c383e</color>
+
+    <color name="fabBackground">#EE6C4D</color>
+    <color name="fabIconColor">#293241</color>
+
+    <color name="BottomSheetTitle">#0B0E14</color>
+    <color name="BottomSheetContent">#191E29</color>
+
+    <color name="importantButton">#FFD166</color>
+
+    <color name="radioButtonTodo">#F28482</color>
+
+    <color name="dateChipIcon">#06D6A0</color>
+
+</resources>

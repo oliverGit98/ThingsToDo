@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation.xml"
+    app:startDestination="@id/todayFragment">
+
+    <fragment
+        android:id="@+id/todayFragment"
+        android:name="com.oliver.thingstodo.fragments.TodayFragment"
+        android:label="@string/nav_today"
+        tools:layout="@layout/fragment_today" />
+    <fragment
+        android:id="@+id/allTodosFragment"
+        android:name="com.oliver.thingstodo.fragments.AllTodosFragment"
+        android:label="@string/nav_alltasks"
+        tools:layout="@layout/fragment_all_todos" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.oliver.thingstodo.fragments.CalendarFragment"
+        android:label="@string/nav_calendar"
+        tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/importantToDosFragment"
+        android:name="com.oliver.thingstodo.fragments.ImportantToDosFragment"
+        android:label="@string/nav_important"
+        tools:layout="@layout/fragment_important_to_dos" />
+    <fragment
+        android:id="@+id/completedToDosFragment"
+        android:name="com.oliver.thingstodo.fragments.CompletedToDosFragment"
+        android:label="@string/nav_completed"
+        tools:layout="@layout/fragment_completed_to_dos" />
+</navigation>
