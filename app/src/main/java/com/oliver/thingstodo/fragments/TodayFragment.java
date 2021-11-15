@@ -74,38 +74,7 @@ public class TodayFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_today, container, false);
 
-        ArrayList<TestModel> todos = new ArrayList<>();
 
-        todos.add(new TestModel("This is Title1", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title2", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title3", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title4", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title5", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title6", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title1", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title2", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title3", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title4", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title5", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title6", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title1", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title2", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title3", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title4", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title5", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title6", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title1", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title2", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title3", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title4", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title5", "This is description.","August 08",false));
-        todos.add(new TestModel("This is Title6", "This is description.","August 08",false));
-
-        recyclerView = view.findViewById(R.id.today_recycler_view);
-        adapter = new TestingViewAdapter(this.getContext(),todos);
-
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         return view;
     }

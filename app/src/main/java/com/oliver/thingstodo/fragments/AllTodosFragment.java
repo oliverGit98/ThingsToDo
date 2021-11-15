@@ -3,6 +3,7 @@ package com.oliver.thingstodo.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.oliver.thingstodo.Adapter.RecyclerViewAdapter;
+import com.oliver.thingstodo.Model.SharedViewModel;
+import com.oliver.thingstodo.Model.TaskViewModel;
 import com.oliver.thingstodo.R;
 import com.oliver.thingstodo.TestModel;
 import com.oliver.thingstodo.TestingViewAdapter;
@@ -23,8 +27,10 @@ import java.util.ArrayList;
  */
 public class AllTodosFragment extends Fragment {
 
-    RecyclerView allTasks;
-    TestingViewAdapter adapter;
+    private TaskViewModel taskViewModel;
+    private RecyclerView allTasksRecyclerView;
+    private RecyclerViewAdapter recyclerViewAdapter;
+    private SharedViewModel sharedViewModel;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,19 +78,18 @@ public class AllTodosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all_todos, container, false);
 
-        ArrayList<TestModel> tasks = new ArrayList<>();
+        allTasksRecyclerView = view.findViewById(R.id.alltodo_recycler_view);
+        allTasksRecyclerView.setHasFixedSize(true);
+        allTasksRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        tasks.add(new TestModel("All Todos Title is Awesome", "No description", "January 12", false));
-        tasks.add(new TestModel("All Todos Title is Awesome", "No description", "January 12", false));
-        tasks.add(new TestModel("All Todos Title is Awesome", "No description", "January 12", false));
-        tasks.add(new TestModel("All Todos Title is Awesome", "No description", "January 12", false));
+        taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
-        allTasks = view.findViewById(R.id.alltodo_recycler_view);
+        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
-        adapter = new TestingViewAdapter(this.getContext(),tasks);
-
-        allTasks.setAdapter(adapter);
-        allTasks.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        taskViewModel.getAllTasks().observe(getViewLifecycleOwner(), taskModels -> {
+            recyclerViewAdapter = new RecyclerViewAdapter(taskModels);
+            allTasksRecyclerView.setAdapter(recyclerViewAdapter);
+        });
 
         return view;
 

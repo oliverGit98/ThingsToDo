@@ -27,16 +27,15 @@ public class TaskModel {
     public boolean isImportant;
 
     @ColumnInfo(name = "is_done")
-    public boolean idDone;
+    public boolean isDone;
 
-    public TaskModel(long taskId, String title, String description, Date dueDate, Date dateCreated, boolean isImportant, boolean idDone) {
-        this.taskId = taskId;
+    public TaskModel(String title, String description, Date dueDate, Date dateCreated, boolean isImportant, boolean isDone) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.dateCreated = dateCreated;
         this.isImportant = isImportant;
-        this.idDone = idDone;
+        this.isDone = isDone;
     }
 
     public long getTaskId() {
@@ -87,12 +86,12 @@ public class TaskModel {
         isImportant = important;
     }
 
-    public boolean isIdDone() {
-        return idDone;
+    public boolean isDone() {
+        return isDone;
     }
 
-    public void setIdDone(boolean idDone) {
-        this.idDone = idDone;
+    public void setDone(boolean done) {
+        this.isDone = done;
     }
 
     @Override
@@ -104,7 +103,7 @@ public class TaskModel {
                 ", dueDate=" + dueDate +
                 ", dateCreated=" + dateCreated +
                 ", isImportant=" + isImportant +
-                ", idDone=" + idDone +
+                ", idDone=" + isDone +
                 '}';
     }
 }

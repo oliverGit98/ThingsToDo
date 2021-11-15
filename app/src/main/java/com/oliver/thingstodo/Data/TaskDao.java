@@ -33,8 +33,8 @@ public interface TaskDao {
     @Query("SELECT * FROM task_table WHERE task_table.is_important == :isImportant")
     LiveData<List<TaskModel>> getImportantTasks(boolean isImportant);
 
-    @Query("SELECT * FROM task_table WHERE task_table.is_done == :idDone")
-    LiveData<List<TaskModel>> getCompletedTasks(boolean idDone);
+    @Query("SELECT * FROM task_table WHERE task_table.is_done == :isDone")
+    LiveData<List<TaskModel>> getCompletedTasks(boolean isDone);
 
     @Update
     void update(TaskModel taskModel);
