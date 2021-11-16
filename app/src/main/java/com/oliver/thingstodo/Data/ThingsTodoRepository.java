@@ -31,7 +31,7 @@ public class ThingsTodoRepository {
         return taskDao.getTask(id);
     }
 
-    public LiveData<List<TaskModel>> getTodayTasks(Date date){
+    public LiveData<List<TaskModel>> getTodayTasks(String date){
         return taskDao.getTodayTasks(date);
     }
 

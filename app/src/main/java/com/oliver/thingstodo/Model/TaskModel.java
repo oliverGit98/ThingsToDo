@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.oliver.thingstodo.Utils.Utils;
+
 import java.util.Date;
 
 @Entity(tableName = "task_table")
@@ -19,6 +21,9 @@ public class TaskModel {
 
     @ColumnInfo(name = "due_date")
     public Date dueDate;
+
+    @ColumnInfo(name = "string_date")
+    public String stringDate;
 
     @ColumnInfo(name = "created_at")
     public Date dateCreated;
@@ -36,6 +41,7 @@ public class TaskModel {
         this.dateCreated = dateCreated;
         this.isImportant = isImportant;
         this.isDone = isDone;
+        this.stringDate = Utils.formatToday(dueDate);
     }
 
     public long getTaskId() {
@@ -92,6 +98,14 @@ public class TaskModel {
 
     public void setDone(boolean done) {
         this.isDone = done;
+    }
+
+    public String getStringDate() {
+        return stringDate;
+    }
+
+    public void setStringDate(String stringDate) {
+        this.stringDate = stringDate;
     }
 
     @Override

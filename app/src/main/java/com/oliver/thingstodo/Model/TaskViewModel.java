@@ -30,7 +30,7 @@ public class TaskViewModel extends AndroidViewModel {
         return repository.getTask(id);
     }
 
-    public LiveData<List<TaskModel>> getTodayTasks(Date date){
+    public LiveData<List<TaskModel>> getTodayTasks(String date){
         return repository.getTodayTasks(date);
     }
 

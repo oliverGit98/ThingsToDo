@@ -3,6 +3,7 @@ package com.oliver.thingstodo.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,11 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.oliver.thingstodo.Adapter.RecyclerViewAdapter;
+import com.oliver.thingstodo.Model.SharedViewModel;
+import com.oliver.thingstodo.Model.TaskViewModel;
 import com.oliver.thingstodo.R;
-import com.oliver.thingstodo.TestModel;
-import com.oliver.thingstodo.TestingViewAdapter;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,8 +23,10 @@ import java.util.ArrayList;
  */
 public class CompletedToDosFragment extends Fragment {
 
-    RecyclerView completedTasks;
-    TestingViewAdapter adapter;
+    private TaskViewModel taskViewModel;
+    private RecyclerView completedTasksRecyclerView;
+    private RecyclerViewAdapter recyclerViewAdapter;
+    private SharedViewModel sharedViewModel;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,19 +74,20 @@ public class CompletedToDosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_completed_to_dos, container, false);
 
-        ArrayList<TestModel> tasks = new ArrayList<>();
+        boolean isDone = true;
 
-        tasks.add(new TestModel("Important Todos Title is Awesome", "No description", "January 12", false));
-        tasks.add(new TestModel("Important Todos Title is Awesome", "No description", "January 12", false));
-        tasks.add(new TestModel("Important Todos Title is Awesome", "No description", "January 12", false));
-        tasks.add(new TestModel("Important Todos Title is Awesome", "No description", "January 12", false));
+        completedTasksRecyclerView = view.findViewById(R.id.completedtasks_recycler_view);
+        completedTasksRecyclerView.setHasFixedSize(true);
+        completedTasksRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        completedTasks = view.findViewById(R.id.completedtasks_recycler_view);
+        taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
-        adapter = new TestingViewAdapter(this.getContext(),tasks);
+        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
-        completedTasks.setAdapter(adapter);
-        completedTasks.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        taskViewModel.getCompletedTasks(isDone).observe(getViewLifecycleOwner(), taskModels -> {
+            recyclerViewAdapter = new RecyclerViewAdapter(taskModels);
+            completedTasksRecyclerView.setAdapter(recyclerViewAdapter);
+        });
 
         return view;
     }

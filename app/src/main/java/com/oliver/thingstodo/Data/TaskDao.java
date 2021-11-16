@@ -21,14 +21,14 @@ public interface TaskDao {
     @Query("DELETE FROM task_table")
     void deleteAll();
 
-    @Query("SELECT * FROM task_table")
+    @Query("SELECT * FROM task_table ORDER BY task_table.due_date ASC")
     LiveData<List<TaskModel>> getAllTasks();
 
     @Query("SELECT * FROM task_table WHERE task_table.task_id == :id")
     LiveData<TaskModel> getTask(long id);
 
-    @Query("SELECT * FROM task_table WHERE task_table.due_date == :date")
-    LiveData<List<TaskModel>> getTodayTasks(Date date);
+    @Query("SELECT * FROM task_table WHERE task_table.string_date == :date")
+    LiveData<List<TaskModel>> getTodayTasks(String date);
 
     @Query("SELECT * FROM task_table WHERE task_table.is_important == :isImportant")
     LiveData<List<TaskModel>> getImportantTasks(boolean isImportant);

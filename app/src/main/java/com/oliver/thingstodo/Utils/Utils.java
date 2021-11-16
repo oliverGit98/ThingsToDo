@@ -15,6 +15,12 @@ public class Utils {
         return simpleDateFormat.format(date);
     }
 
+    public static String formatToday(Date date){
+        SimpleDateFormat simpleDateFormat = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
+        simpleDateFormat.applyPattern("dd-MM-yyyy");
+        return simpleDateFormat.format(date);
+    }
+
     public static void hideSoftKeyboard(View view){
         InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);

@@ -17,6 +17,8 @@ import com.oliver.thingstodo.Model.SharedViewModel;
 import com.oliver.thingstodo.Model.TaskModel;
 import com.oliver.thingstodo.Model.TaskViewModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -61,8 +63,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
                calendar.clear();
-               calendar.set(year, month, dayOfMonth);
+               calendar.setTimeInMillis(0);
+               calendar.set(year, month, dayOfMonth, 0 , 0 ,0);
                dueDate = calendar.getTime();
+
             }
         });
 
@@ -71,7 +75,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             String desc = description.getText().toString().trim();
             if(!TextUtils.isEmpty(title) && dueDate != null){
 
-                TaskModel myTask = new TaskModel(title, desc, dueDate, Calendar.getInstance().getTime(), false, false);
+                TaskModel myTask = new TaskModel(title, desc, dueDate, Calendar.getInstance().getTime(), true, true);
 
                 TaskViewModel.insert(myTask);
 
