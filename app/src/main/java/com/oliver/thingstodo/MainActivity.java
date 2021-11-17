@@ -77,12 +77,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+                showBottomSheet();
             }
         });
 
 
+    }
+
+    public void showBottomSheet(){
+        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 
     @Override
