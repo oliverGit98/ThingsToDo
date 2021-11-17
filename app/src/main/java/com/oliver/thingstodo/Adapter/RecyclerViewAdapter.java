@@ -3,6 +3,7 @@ package com.oliver.thingstodo.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.oliver.thingstodo.Model.TaskModel;
+import com.oliver.thingstodo.Model.TaskViewModel;
 import com.oliver.thingstodo.R;
 import com.oliver.thingstodo.TestingViewAdapter;
 import com.oliver.thingstodo.Utils.Utils;
@@ -25,6 +27,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.taskList = taskList;
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,23 +38,34 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        holder.completedButton.setOnCheckedChangeListener(null);
+        holder.importantButton.setOnCheckedChangeListener(null);
+
         TaskModel task = taskList.get(position);
         String formattedDate = Utils.formatDate(task.getDueDate());
 
         holder.taskTitle.setText(task.getTitle());
         holder.dateChip.setText(formattedDate);
 
-        if(task.isDone()){
-            holder.completedButton.setChecked(true);
-        }else{
-            holder.completedButton.setChecked(false);
-        }
+        holder.completedButton.setChecked(task.isDone());
 
-        if(task.isImportant()){
-            holder.importantButton.setChecked(true);
-        }else{
-            holder.importantButton.setChecked(false);
-        }
+        holder.completedButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                task.setDone(b);
+                TaskViewModel.update(task);
+            }
+        });
+
+        holder.importantButton.setChecked(task.isImportant());
+
+        holder.importantButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                task.setImportant(b);
+                TaskViewModel.update(task);
+            }
+        });
 
     }
 
@@ -73,6 +87,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             taskTitle = itemView.findViewById(R.id.todo_title);
             dateChip = itemView.findViewById(R.id.date_chip);
             importantButton = itemView.findViewById(R.id.important_button);
+
+
         }
+
     }
 }

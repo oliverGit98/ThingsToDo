@@ -75,7 +75,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             String desc = description.getText().toString().trim();
             if(!TextUtils.isEmpty(title) && dueDate != null){
 
-                TaskModel myTask = new TaskModel(title, desc, dueDate, Calendar.getInstance().getTime(), true, true);
+                TaskModel myTask = new TaskModel(title, desc, dueDate, Calendar.getInstance().getTime(), false, false);
 
                 TaskViewModel.insert(myTask);
 

@@ -42,6 +42,10 @@ public class TaskViewModel extends AndroidViewModel {
         return repository.getCompletedTasks(isDone);
     }
 
+    public static void complete(boolean isDone, long id){
+        repository.complete(isDone, id);
+    }
+
     public static void insert(TaskModel task){
         repository.insert(task);
     }

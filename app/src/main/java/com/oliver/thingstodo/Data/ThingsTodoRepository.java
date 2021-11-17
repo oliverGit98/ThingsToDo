@@ -43,6 +43,10 @@ public class ThingsTodoRepository {
         return taskDao.getCompletedTasks(isDone);
     }
 
+    public void complete(boolean isDone, long id){
+        TaskRoomDatabase.databaseWriterExecutor.execute(() -> taskDao.complete(isDone, id));
+    }
+
     public void insert(TaskModel taskModel){
         TaskRoomDatabase.databaseWriterExecutor.execute(() -> taskDao.insertTask(taskModel));
     }

@@ -36,6 +36,9 @@ public interface TaskDao {
     @Query("SELECT * FROM task_table WHERE task_table.is_done == :isDone")
     LiveData<List<TaskModel>> getCompletedTasks(boolean isDone);
 
+    @Query("UPDATE task_table SET is_important = :isDone WHERE task_table.task_id == :id")
+    void complete(boolean isDone, long id);
+
     @Update
     void update(TaskModel taskModel);
 

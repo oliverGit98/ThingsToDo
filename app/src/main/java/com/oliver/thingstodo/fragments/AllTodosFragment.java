@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.oliver.thingstodo.Adapter.OnRecyclerViewClickListener;
 import com.oliver.thingstodo.Adapter.RecyclerViewAdapter;
 import com.oliver.thingstodo.Model.SharedViewModel;
+import com.oliver.thingstodo.Model.TaskModel;
 import com.oliver.thingstodo.Model.TaskViewModel;
 import com.oliver.thingstodo.R;
 import com.oliver.thingstodo.TestModel;
@@ -95,4 +97,6 @@ public class AllTodosFragment extends Fragment {
 
 
     }
+
+
 }
