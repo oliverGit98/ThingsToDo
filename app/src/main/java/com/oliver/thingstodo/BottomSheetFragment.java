@@ -10,9 +10,12 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.oliver.thingstodo.Model.SharedViewModel;
 import com.oliver.thingstodo.Model.TaskModel;
 import com.oliver.thingstodo.Model.TaskViewModel;
@@ -53,11 +56,20 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        if(sharedViewModel.getSelectedTask().getValue() != null){
+            isEdit = sharedViewModel.getIsEdit();
+            TaskModel task = sharedViewModel.getSelectedTask().getValue();
+            todoTitle.setText(task.getTitle());
+            description.setText(task.getDescription());
+            calendarView.setDate(task.getDueDate().getTime());
+        }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -77,16 +89,30 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
                 TaskModel myTask = new TaskModel(title, desc, dueDate, Calendar.getInstance().getTime(), false, false);
 
-                TaskViewModel.insert(myTask);
+                if(isEdit){
+                    TaskModel updatedTask = sharedViewModel.getSelectedTask().getValue();
+                    updatedTask.setTitle(title);
+                    updatedTask.setDescription(desc);
+                    updatedTask.setDueDate(dueDate);
 
+                    TaskViewModel.update(updatedTask);
+                    sharedViewModel.setIsEdit(false);
+                }
+                else{
+                    TaskViewModel.insert(myTask);
+                }
+                todoTitle.setText("");
+                description.setText("");
+
+                if(this.isVisible()){
+                    this.dismiss();
+                }
+            }
+            else{
+                Snackbar.make(saveFab, "Empty Fields", BaseTransientBottomBar.LENGTH_LONG).show();
             }
 
-            todoTitle.setText("");
-            description.setText("");
 
-            if(this.isVisible()){
-                this.dismiss();
-            }
 
         });
     }

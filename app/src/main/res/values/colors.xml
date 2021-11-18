@@ -36,4 +36,8 @@
 
     <color name="dateChipIcon">#06D6A0</color>
 
+    <color name="swipeRight">#2A9D8F</color>
+    <color name="swipeLeft">#D62828</color>
+    <color name="iconColor">#FFFFFF</color>
+
 </resources>

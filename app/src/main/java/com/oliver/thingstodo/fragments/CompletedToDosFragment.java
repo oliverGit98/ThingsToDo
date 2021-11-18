@@ -1,9 +1,13 @@
 package com.oliver.thingstodo.fragments;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,10 +15,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.oliver.thingstodo.Adapter.RecyclerViewAdapter;
+import com.oliver.thingstodo.MainActivity;
 import com.oliver.thingstodo.Model.SharedViewModel;
+import com.oliver.thingstodo.Model.TaskModel;
 import com.oliver.thingstodo.Model.TaskViewModel;
 import com.oliver.thingstodo.R;
+
+import java.util.List;
+
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,8 +99,69 @@ public class CompletedToDosFragment extends Fragment {
         taskViewModel.getCompletedTasks(isDone).observe(getViewLifecycleOwner(), taskModels -> {
             recyclerViewAdapter = new RecyclerViewAdapter(taskModels);
             completedTasksRecyclerView.setAdapter(recyclerViewAdapter);
+            initSwipe(taskModels);
         });
 
         return view;
     }
+
+    public void initSwipe(List<TaskModel> taskList){
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                TaskModel currentTask = taskList.get(position);
+                switch (direction){
+                    case ItemTouchHelper.LEFT:
+                        TaskViewModel.delete(currentTask);
+                        recyclerViewAdapter.notifyDataSetChanged();
+                        Snackbar.make(completedTasksRecyclerView, currentTask.getTitle() +" Deleted", BaseTransientBottomBar.LENGTH_LONG)
+                                .setAction("UNDO", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        TaskViewModel.insert(currentTask);
+                                        recyclerViewAdapter.notifyDataSetChanged();
+                                        recyclerViewAdapter.notifyItemInserted(position);
+                                    }
+                                }).show();
+                        break;
+
+                    case ItemTouchHelper.RIGHT:
+                        sharedViewModel.setSelectedTask(currentTask);
+                        sharedViewModel.setIsEdit(true);
+
+                        ((MainActivity)getActivity()).showBottomSheet();
+                        recyclerViewAdapter.notifyDataSetChanged();
+
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(CompletedToDosFragment.this.getContext(), R.color.swipeLeft))
+                        .addSwipeLeftActionIcon(R.drawable.ic_delete)
+                        .setSwipeLeftActionIconTint(R.color.iconColor)
+                        .addSwipeRightBackgroundColor(ContextCompat.getColor(CompletedToDosFragment.this.getContext(), R.color.swipeRight))
+                        .addSwipeRightActionIcon(R.drawable.ic_edit)
+                        .setSwipeRightActionIconTint(R.color.iconColor)
+                        .create()
+                        .decorate();
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(completedTasksRecyclerView);
+    }
+
 }

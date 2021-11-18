@@ -145,7 +145,8 @@ public class AllTodosFragment extends Fragment {
                         sharedViewModel.setSelectedTask(currentTask);
                         sharedViewModel.setIsEdit(true);
 
-                        //toggleBottemSheet();
+                        ((MainActivity)getActivity()).showBottomSheet();
+                        recyclerViewAdapter.notifyDataSetChanged();
 
                         break;
                 }
@@ -155,10 +156,12 @@ public class AllTodosFragment extends Fragment {
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(AllTodosFragment.this.getContext(), R.color.fabBackground))
+                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(AllTodosFragment.this.getContext(), R.color.swipeLeft))
                         .addSwipeLeftActionIcon(R.drawable.ic_delete)
-                        .addSwipeRightBackgroundColor(ContextCompat.getColor(AllTodosFragment.this.getContext(), R.color.fabBackground))
+                        .setSwipeLeftActionIconTint(R.color.iconColor)
+                        .addSwipeRightBackgroundColor(ContextCompat.getColor(AllTodosFragment.this.getContext(), R.color.swipeRight))
                         .addSwipeRightActionIcon(R.drawable.ic_edit)
+                        .setSwipeRightActionIconTint(R.color.iconColor)
                         .create()
                         .decorate();
 
@@ -168,13 +171,6 @@ public class AllTodosFragment extends Fragment {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(allTasksRecyclerView);
-    }
-
-    public void toggleBottemSheet(){
-
-        MainActivity activity = new MainActivity();
-        activity.showBottomSheet();
-
     }
 
 }
