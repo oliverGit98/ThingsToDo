@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,12 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.oliver.thingstodo.Adapter.OnRecyclerViewClickListener;
 import com.oliver.thingstodo.Adapter.RecyclerViewAdapter;
 import com.oliver.thingstodo.BottomSheetFragment;
 import com.oliver.thingstodo.MainActivity;
@@ -28,10 +24,7 @@ import com.oliver.thingstodo.Model.SharedViewModel;
 import com.oliver.thingstodo.Model.TaskModel;
 import com.oliver.thingstodo.Model.TaskViewModel;
 import com.oliver.thingstodo.R;
-import com.oliver.thingstodo.TestModel;
-import com.oliver.thingstodo.TestingViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -142,10 +135,10 @@ public class AllTodosFragment extends Fragment {
                         break;
 
                     case ItemTouchHelper.RIGHT:
-                        sharedViewModel.setSelectedTask(currentTask);
-                        sharedViewModel.setIsEdit(true);
+//                        sharedViewModel.setSelectedTask(currentTask);
+//                        sharedViewModel.setIsEdit(true);
 
-                        ((MainActivity)getActivity()).showBottomSheet();
+                        ((MainActivity)getActivity()).showBottomSheet(currentTask, true);
                         recyclerViewAdapter.notifyDataSetChanged();
 
                         break;

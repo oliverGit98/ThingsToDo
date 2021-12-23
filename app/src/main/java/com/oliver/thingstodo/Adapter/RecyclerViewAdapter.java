@@ -14,7 +14,6 @@ import com.google.android.material.chip.Chip;
 import com.oliver.thingstodo.Model.TaskModel;
 import com.oliver.thingstodo.Model.TaskViewModel;
 import com.oliver.thingstodo.R;
-import com.oliver.thingstodo.TestingViewAdapter;
 import com.oliver.thingstodo.Utils.Utils;
 
 import java.util.List;
@@ -87,7 +86,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             taskTitle = itemView.findViewById(R.id.todo_title);
             dateChip = itemView.findViewById(R.id.date_chip);
             importantButton = itemView.findViewById(R.id.important_button);
-
 
         }
 

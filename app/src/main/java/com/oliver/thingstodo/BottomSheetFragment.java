@@ -1,5 +1,6 @@
 package com.oliver.thingstodo;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -39,6 +40,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     public BottomSheetFragment(){
     }
+
+//    public BottomSheetFragment(SharedViewModel sharedViewModel){
+//        this.sharedViewModel = sharedViewModel;
+//    }
 
     @Nullable
     @Override
@@ -96,6 +101,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                     updatedTask.setDueDate(dueDate);
 
                     TaskViewModel.update(updatedTask);
+                    sharedViewModel.setSelectedTask(null);
                     sharedViewModel.setIsEdit(false);
                 }
                 else{
@@ -112,8 +118,16 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 Snackbar.make(saveFab, "Empty Fields", BaseTransientBottomBar.LENGTH_LONG).show();
             }
 
-
-
         });
+    }
+
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        todoTitle.setText("");
+        description.setText("");
+        calendarView.setDate(Calendar.getInstance().getTime().getTime());
+        sharedViewModel.setSelectedTask(null);
+        sharedViewModel.setIsEdit(false);
     }
 }

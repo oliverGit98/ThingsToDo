@@ -7,4 +7,5 @@ public interface OnRecyclerViewClickListener {
     void onCompleteButtonClick(TaskModel task);
     void onImportantButtonClick(TaskModel task);
 
+    void onTodoLayoutClick(TaskModel currTask);
 }

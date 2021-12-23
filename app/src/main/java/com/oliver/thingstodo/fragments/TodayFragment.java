@@ -147,10 +147,10 @@ public class TodayFragment extends Fragment {
                         break;
 
                     case ItemTouchHelper.RIGHT:
-                        sharedViewModel.setSelectedTask(currentTask);
-                        sharedViewModel.setIsEdit(true);
+//                        sharedViewModel.setSelectedTask(currentTask);
+//                        sharedViewModel.setIsEdit(true);
 
-                        ((MainActivity)getActivity()).showBottomSheet();
+                        ((MainActivity)getActivity()).showBottomSheet(currentTask, true);
                         recyclerViewAdapter.notifyDataSetChanged();
 
                         break;

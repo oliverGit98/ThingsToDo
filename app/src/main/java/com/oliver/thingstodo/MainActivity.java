@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -21,6 +22,8 @@ import android.widget.LinearLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.oliver.thingstodo.Model.SharedViewModel;
+import com.oliver.thingstodo.Model.TaskModel;
 import com.oliver.thingstodo.fragments.AllTodosFragment;
 import com.oliver.thingstodo.fragments.CalendarFragment;
 import com.oliver.thingstodo.fragments.CompletedToDosFragment;
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     FloatingActionButton fab;
     BottomSheetFragment bottomSheetFragment;
+
+    SharedViewModel sharedViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.nav_today);
         }
 
+        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
         bottomSheetFragment = new BottomSheetFragment();
         LinearLayout linearLayout = findViewById(R.id.bottom_sheet);
@@ -77,14 +83,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showBottomSheet();
+//                showBottomSheet();
+                bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
             }
         });
 
 
     }
 
-    public void showBottomSheet(){
+    public void showBottomSheet(TaskModel taskModel, boolean isEdit){
+        sharedViewModel.setSelectedTask(taskModel);
+        sharedViewModel.setIsEdit(isEdit);
         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 
